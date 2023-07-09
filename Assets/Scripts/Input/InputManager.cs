@@ -12,6 +12,8 @@ namespace NetcodeForGameObjects.Input
     {
         private Controls _controls;
 
+        public Vector2 AimInput { get; private set; }
+
         public event Action<Vector2> MoveEvent;
         public event Action<bool> PrimaryFireEvent;
 
@@ -40,6 +42,11 @@ namespace NetcodeForGameObjects.Input
             {
                 PrimaryFireEvent?.Invoke(false);
             }
+        }
+
+        public void OnAim(InputAction.CallbackContext context)
+        {
+            AimInput = context.ReadValue<Vector2>();
         }
     }
 }

@@ -7,6 +7,12 @@ namespace NetcodeForGameObjects.Network
 {
     public class ClientNetworkTransform : NetworkTransform
     {
+        public override void OnNetworkSpawn()
+        {
+            base.OnNetworkSpawn();
+            CanCommitToTransform = IsOwner;
+        }
+        
         protected override void Update()
         {
             CanCommitToTransform = IsOwner;
@@ -21,14 +27,7 @@ namespace NetcodeForGameObjects.Network
                         TryCommitTransformToServer(transform, NetworkManager.LocalTime.Time);
                     }
                 }
-
             }
-        }
-
-        public override void OnNetworkSpawn()
-        {
-            base.OnNetworkSpawn();
-            CanCommitToTransform = IsOwner;
         }
 
         protected override bool OnIsServerAuthoritative()

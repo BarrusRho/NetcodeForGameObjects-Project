@@ -19,7 +19,7 @@ namespace NetcodeForGameObjects.Core
             }
 
             var aimScreenPosition = _inputManager.AimInput;
-            Vector2 aimWorldPosition = Camera.main.ScreenToWorldPoint(aimScreenPosition);
+            var aimWorldPosition = Camera.main.ScreenToWorldPoint(aimScreenPosition);
 
             _turretTransform.up = new Vector2(aimWorldPosition.x - _turretTransform.position.x, aimWorldPosition.y - _turretTransform.position.y);
         }

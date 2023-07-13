@@ -95,6 +95,11 @@ namespace NetcodeForGameObjects.Core
             var projectileCollider = projectile.GetComponent<Collider2D>();
             Physics2D.IgnoreCollision(_playerCollider, projectileCollider);
 
+            if (projectile.TryGetComponent<DamageOnContact>(out var damageOnContactComponent))
+            {
+                damageOnContactComponent.SetOwner(OwnerClientId);
+            }
+
             if (projectile.TryGetComponent(out Rigidbody2D rigidbody2D))
             {
                 rigidbody2D.velocity = rigidbody2D.transform.up * _projectileSpeed;

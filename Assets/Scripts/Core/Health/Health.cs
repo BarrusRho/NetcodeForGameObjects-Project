@@ -28,22 +28,12 @@ namespace NetcodeForGameObjects.Core
 
         private void ModifyHealth(int value)
         {
-
-        }
-
-        public void TakeDamage(int damageAmount)
-        {
-            ModifyHealth(-damageAmount);
-        }
-
-        public void RestoreHealth(int healthAmount)
-        {
             if (_isDead)
             {
                 return;
             }
 
-            var newHealthAmount = CurrentHealth.Value + healthAmount;
+            var newHealthAmount = CurrentHealth.Value + value;
             CurrentHealth.Value = Mathf.Clamp(newHealthAmount, 0, MaxHealth);
 
             if (CurrentHealth.Value == 0)
@@ -51,6 +41,16 @@ namespace NetcodeForGameObjects.Core
                 OnDeath?.Invoke(this);
                 _isDead = true;
             }
+        }
+
+        public void TakeDamage(int damageAmount)
+        {
+            ModifyHealth(-damageAmount);
+        }
+
+        public void RestoreHealth(int healAmount)
+        {
+            ModifyHealth(healAmount);
         }
     }
 }

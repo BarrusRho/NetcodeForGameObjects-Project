@@ -8,7 +8,7 @@ namespace NetcodeForGameObjects.Core
     public abstract class CoinBase : NetworkBehaviour
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        protected int _coinValue;
+        protected int _coinValue = 10;
         protected bool _isCollected;
 
         public abstract int Collect();

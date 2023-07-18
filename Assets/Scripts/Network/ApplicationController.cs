@@ -26,10 +26,15 @@ namespace NetcodeForGameObjects.Network
             else
             {
                 var clientSingleton = Instantiate(_clientSingleton);
-                await clientSingleton.CreateClient();
+                var isAuthenticated = await clientSingleton.CreateClient();
 
                 var hostSingleton = Instantiate(_hostSingleton);
                 hostSingleton.CreateHost();
+
+                if(isAuthenticated)
+                {
+                    clientSingleton.ClientGameManager.GoToMainMenu();
+                }
             }
         }
     }

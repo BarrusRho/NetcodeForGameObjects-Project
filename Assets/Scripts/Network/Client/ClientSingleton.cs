@@ -11,6 +11,7 @@ namespace NetcodeForGameObjects.Network
         public static ClientSingleton Instance => _instance;
 
         private ClientGameManager _clientGameManager;
+        public ClientGameManager ClientGameManager => _clientGameManager;
 
         private void Awake()
         {
@@ -25,10 +26,10 @@ namespace NetcodeForGameObjects.Network
             }
         }
 
-        public async Task CreateClient()
+        public async Task<bool> CreateClient()
         {
             _clientGameManager = new ClientGameManager();
-            await _clientGameManager.InitAsync();
+            return await _clientGameManager.InitAsync();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace NetcodeForGameObjects.Network
         public static HostSingleton Instance => _instance;
 
         private HostGameManager _hostGameManager;
+        public HostGameManager HostGameManager => _hostGameManager;
 
         private void Awake()
         {

@@ -44,7 +44,7 @@ namespace NetcodeForGameObjects.Network
             }
 
             var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
-            var relayServerData = new RelayServerData(_allocation, "udp");
+            var relayServerData = new RelayServerData(_allocation, "dtls");
             unityTransport.SetRelayServerData(relayServerData);
 
             NetworkManager.Singleton.StartHost();

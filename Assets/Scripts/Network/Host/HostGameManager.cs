@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using NetcodeForGameObjects.UI;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -17,10 +19,12 @@ namespace NetcodeForGameObjects.Network
     public class HostGameManager
     {
         private Allocation _allocation;
+        private NetworkServer _networkServer;
+
         private string _joinCode;
         private string _lobbyId;
-        private const int _maxConnections = 20;
 
+        private const int _maxConnections = 20;
         private const string _gameSceneName = "Main";
 
         public async Task StartHostAsync()
@@ -61,7 +65,9 @@ namespace NetcodeForGameObjects.Network
                     }
                 };
 
-                var lobby = await Lobbies.Instance.CreateLobbyAsync("My Lobby", _maxConnections, lobbyOptions);
+                var playerName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Unknown");
+                var lobby = await Lobbies.Instance.CreateLobbyAsync(
+                    $"{playerName}'s Lobby", _maxConnections, lobbyOptions);
                 _lobbyId = lobby.Id;
 
                 HostSingleton.Instance.StartCoroutine(HeartbeatLobbyRoutine(15));
@@ -71,6 +77,18 @@ namespace NetcodeForGameObjects.Network
                 Debug.Log(exception);
                 return;
             }
+
+            _networkServer = new NetworkServer(NetworkManager.Singleton);
+            
+            var userData = new UserData()
+            {
+                userName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Missing Name")
+            };
+
+            var payload = JsonUtility.ToJson(userData);
+            var payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
             NetworkManager.Singleton.StartHost();
 

@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Unity.Services.Core;
 using System;
+using System.Text;
+using NetcodeForGameObjects.UI;
 using UnityEngine.SceneManagement;
 using Unity.Services.Relay.Models;
 using Unity.Services.Relay;
@@ -52,6 +54,16 @@ namespace NetcodeForGameObjects.Network
             var unityTransport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             var relayServerData = new RelayServerData(_joinAllocation, "dtls");
             unityTransport.SetRelayServerData(relayServerData);
+
+            var userData = new UserData()
+            {
+                userName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Missing Name")
+            };
+
+            var payload = JsonUtility.ToJson(userData);
+            var payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
             NetworkManager.Singleton.StartClient();
         }

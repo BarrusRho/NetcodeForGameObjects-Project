@@ -191,7 +191,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: ec3c4f39bc5b5a645acb03a27f1f2ae3, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
-    ConnectionApproval: 0
+    ConnectionApproval: 1
     ConnectionData: 
     EnableTimeResync: 0
     TimeResyncInterval: 30
@@ -890,3 +890,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4514922629dec1d4c9acff3121357deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _joinCodeInputField: {fileID: 0}

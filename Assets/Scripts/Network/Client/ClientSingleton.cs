@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ namespace NetcodeForGameObjects.Network
                 _instance = this;
                 DontDestroyOnLoad(this.gameObject);
             }
+        }
+
+        private void OnDestroy()
+        {
+            _clientGameManager?.Dispose();
         }
 
         public async Task<bool> CreateClient()

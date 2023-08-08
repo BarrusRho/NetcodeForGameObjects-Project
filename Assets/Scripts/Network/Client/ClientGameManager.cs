@@ -16,7 +16,7 @@ using Unity.Services.Authentication;
 
 namespace NetcodeForGameObjects.Network
 {
-    public class ClientGameManager
+    public class ClientGameManager : IDisposable
     {
         private JoinAllocation _joinAllocation;
         private NetworkClient _networkClient;
@@ -71,6 +71,11 @@ namespace NetcodeForGameObjects.Network
             NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
 
             NetworkManager.Singleton.StartClient();
+        }
+
+        public void Dispose()
+        {
+            _networkClient?.Dispose();
         }
     }
 }
